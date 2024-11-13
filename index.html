@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manajemen Data Pelanggan</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Manajemen Data Pelanggan</h1>
+
+        
+        <form class="form-pelanggan">
+            <h2>Tambah Pelanggan Baru</h2>
+            <input type="text" placeholder="Nama" required>
+            <input type="text" placeholder="Alamat" required>
+            <input type="tel" placeholder="Nomor Telepon" required>
+            <input type="email" placeholder="Email" required>
+            <button type="submit">Tambah Pelanggan</button>
+        </form>
+
+       
+        <h2>Daftar Pelanggan</h2>
+        <input type="text" class="search-box" placeholder="Cari pelanggan...">
+        <table class="tabel-pelanggan">
+            <thead>
+                <tr>
+                    <th>Nama</th>
+                    <th>Alamat</th>
+                    <th>Nomor Telepon</th>
+                    <th>Email</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+    <script>
+    
+        const form = document.querySelector('.form-pelanggan');
+        const tabelPelanggan = document.querySelector('.tabel-pelanggan tbody');
+        const searchBox = document.querySelector('.search-box');
+
+
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            
+            const nama = form.querySelector('input[placeholder="Nama"]').value;
+            const alamat = form.querySelector('input[placeholder="Alamat"]').value;
+            const nomorTelepon = form.querySelector('input[placeholder="Nomor Telepon"]').value;
+            const email = form.querySelector('input[placeholder="Email"]').value;
+
+            
+            const barisBaru = document.createElement('tr');
+            barisBaru.innerHTML = `
+                <td>${nama}</td>
+                <td>${alamat}</td>
+                <td>${nomorTelepon}</td>
+                <td>${email}</td>
+            `;
+
+            
+            tabelPelanggan.appendChild(barisBaru);
+
+            
+            form.reset();
+        });
+
+        
+        searchBox.addEventListener('input', function() {
+            const searchTerm = searchBox.value.toLowerCase();
+            const rows = tabelPelanggan.querySelectorAll('tr');
+
+            rows.forEach(row => {
+                const nama = row.querySelector('td').textContent.toLowerCase();
+                if (nama.includes(searchTerm)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none'; 
+                }
+            });
+        });
+    </script>
+</body>
+</html>
